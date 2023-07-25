@@ -1,0 +1,6 @@
+create table depoimentos(
+	id int primary key,
+	foto BYTEA,
+	depoimento varchar(500) not null,
+	nome_pessoa varchar(50) not null
+);
