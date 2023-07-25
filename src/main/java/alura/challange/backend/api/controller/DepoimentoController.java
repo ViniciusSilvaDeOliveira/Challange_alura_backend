@@ -41,4 +41,12 @@ public class DepoimentoController {
         return ResponseEntity.ok(new DadosDetalhamentoDepoimentos(depoimento));
     }
 
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity excluir(@PathVariable Long id){
+        depoimentoRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
