@@ -33,4 +33,12 @@ public class DepoimentoController {
         return ResponseEntity.ok(page);
     }
 
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizarDepoimento dados){
+        var depoimento = depoimentoRepository.getReferenceById(dados.id());
+        depoimento.atualizarInformacoes(dados);
+        return ResponseEntity.ok(new DadosDetalhamentoDepoimentos(depoimento));
+    }
+
 }
