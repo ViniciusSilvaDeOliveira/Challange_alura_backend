@@ -18,12 +18,19 @@ import java.util.List;
 @RequestMapping("/depoimentos")
 public class DepoimentoController {
 
+    /**
+     * Classe de endpoints de depoimentos
+     */
+
     @Autowired
     private DepoimentoRepository depoimentoRepository;
 
     @Autowired
     private DepoimentoService depoimentoService;
 
+    /**
+     * Método POST para enviar um depoimento para o banco
+     */
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroDepoimentos dados, UriComponentsBuilder uriBuilder){
@@ -33,17 +40,26 @@ public class DepoimentoController {
         return ResponseEntity.created(uri).body(new DadosDetalhamentoDepoimentos(depoimentos));
     }
 
+    /**
+     * Método GET para listar os depoimentos
+     */
     @GetMapping
     public ResponseEntity <Page<DadosListagemDepoimentos>> listar(@PageableDefault(size = 10, sort = {"nome"})Pageable paginacao){
         var page = depoimentoRepository.findAll(paginacao).map(DadosListagemDepoimentos::new);
         return ResponseEntity.ok(page);
     }
 
+    /**
+     * Método GET para trazer três depoimentos aleatórios ao ser chamado
+     */
     @GetMapping("/depoimentos-home")
     public ResponseEntity<List<Depoimentos>> listarAleatorios(){
         return ResponseEntity.ok(depoimentoService.obterDepoimentosRandomicos());
     }
 
+    /**
+     * Método PUT para realizar as akterações de depoimento através do ID
+     */
     @PutMapping
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizarDepoimento dados){
@@ -52,6 +68,9 @@ public class DepoimentoController {
         return ResponseEntity.ok(new DadosDetalhamentoDepoimentos(depoimento));
     }
 
+    /**
+     * Método DELETE para excluir
+     */
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id){
@@ -59,6 +78,9 @@ public class DepoimentoController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Método GET para retornar um unico id
+     */
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id){
         var depoimento = depoimentoRepository.getReferenceById(id);
