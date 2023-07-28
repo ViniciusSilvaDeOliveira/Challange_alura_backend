@@ -1,6 +1,7 @@
 package alura.challange.backend.api.controller;
 
 import alura.challange.backend.api.domain.depoimentos.*;
+import alura.challange.backend.api.service.DepoimentoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/depoimentos")
 public class DepoimentoController {
 
     @Autowired
     private DepoimentoRepository depoimentoRepository;
+
+    @Autowired
+    private DepoimentoService depoimentoService;
 
     @PostMapping
     @Transactional
@@ -31,6 +37,11 @@ public class DepoimentoController {
     public ResponseEntity <Page<DadosListagemDepoimentos>> listar(@PageableDefault(size = 10, sort = {"nome"})Pageable paginacao){
         var page = depoimentoRepository.findAll(paginacao).map(DadosListagemDepoimentos::new);
         return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/depoimentos-home")
+    public ResponseEntity<List<Depoimentos>> listarAleatorios(){
+        return ResponseEntity.ok(depoimentoService.obterDepoimentosRandomicos());
     }
 
     @PutMapping

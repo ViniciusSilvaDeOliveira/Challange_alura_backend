@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 @Table(name = "depoimentos")
 @Entity(name = "Depoimentos")
@@ -37,4 +36,6 @@ public class Depoimentos {
             this.depoimento = dados.depoimento();
         }
     }
+
+
 }
