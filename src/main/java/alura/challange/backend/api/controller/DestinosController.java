@@ -1,17 +1,13 @@
 package alura.challange.backend.api.controller;
 
-import alura.challange.backend.api.domain.destinos.DadosCadastroDestinos;
-import alura.challange.backend.api.domain.destinos.DadosDetalhamentoDestinos;
-import alura.challange.backend.api.domain.destinos.Destinos;
-import alura.challange.backend.api.domain.destinos.DestinosRepository;
+import alura.challange.backend.api.domain.destinos.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
@@ -35,6 +31,13 @@ public class DestinosController {
         destinosRepository.save(destinos);
         var uri = uriBuilder.path("/destinos/{id}").buildAndExpand(destinos.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoDestinos(destinos));
+    }
+
+    @GetMapping
+    @Transactional
+    public ResponseEntity <Page<DadosListagemDestinos>> listar(Pageable paginacao){
+        var page = destinosRepository.findAll(paginacao).map(DadosListagemDestinos::new);
+        return ResponseEntity.ok(page);
     }
 
 
