@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+import java.util.function.LongFunction;
+
 @RestController
 @RequestMapping("/destinos")
 public class DestinosController {
@@ -54,4 +57,9 @@ public class DestinosController {
         destinosRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    /*@GetMapping("/destinos/{nome}")
+    public List<Destinos> detalhar(@PathVariable String nome){
+        return ResponseEntity.ok(destinosRepository.findByNameContainingIgnoreCase(nome)).getBody();
+    }*/
 }
