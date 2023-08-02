@@ -26,4 +26,14 @@ public class Destinos {
         this.nome = dados.nome();
         this.preco = dados.preco();
     }
+
+    public void atualizarDestinos(DadosAtualizarDestinos dados){
+        if(dados.foto() != null){
+            this.foto = dados.foto();
+        }
+
+        if(dados.preco() != null){
+            this.preco = dados.preco();
+        }
+    }
 }

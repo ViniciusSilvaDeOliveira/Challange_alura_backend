@@ -1,5 +1,6 @@
 package alura.challange.backend.api.controller;
 
+import alura.challange.backend.api.domain.depoimentos.DadosDetalhamentoDepoimentos;
 import alura.challange.backend.api.domain.destinos.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -34,11 +35,23 @@ public class DestinosController {
     }
 
     @GetMapping
-    @Transactional
     public ResponseEntity <Page<DadosListagemDestinos>> listar(Pageable paginacao){
         var page = destinosRepository.findAll(paginacao).map(DadosListagemDestinos::new);
         return ResponseEntity.ok(page);
     }
 
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizarDestinos dados){
+        var destinos = destinosRepository.getReferenceById(dados.id());
+        destinos.atualizarDestinos(dados);
+        return ResponseEntity.ok(new DadosDetalhamentoDestinos(destinos));
+    }
 
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity excluir(@PathVariable Long id){
+        destinosRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
