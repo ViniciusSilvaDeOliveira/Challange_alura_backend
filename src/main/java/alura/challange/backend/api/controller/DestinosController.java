@@ -58,8 +58,9 @@ public class DestinosController {
         return ResponseEntity.noContent().build();
     }
 
-    /*@GetMapping("/destinos/{nome}")
-    public List<Destinos> detalhar(@PathVariable String nome){
-        return ResponseEntity.ok(destinosRepository.findByNameContainingIgnoreCase(nome)).getBody();
-    }*/
+    @GetMapping("/{nome}")
+    public ResponseEntity detalhar(@PathVariable String nome){
+        var destinos = destinosRepository.getDestinoByNome(nome);
+        return ResponseEntity.ok(new DadosDetalhamentoDestinos(destinos));
+    }
 }
