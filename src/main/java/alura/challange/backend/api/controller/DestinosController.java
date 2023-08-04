@@ -1,6 +1,6 @@
 package alura.challange.backend.api.controller;
 
-import alura.challange.backend.api.domain.depoimentos.DadosDetalhamentoDepoimentos;
+import alura.challange.backend.api.domain.depoimentos.DadosListagemDepoimentos;
 import alura.challange.backend.api.domain.destinos.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
