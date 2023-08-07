@@ -1,4 +1,4 @@
-package alura.challange.backend.api.usuario;
+package alura.challange.backend.api.domain.usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

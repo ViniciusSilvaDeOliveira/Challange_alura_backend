@@ -1,4 +1,4 @@
-package alura.challange.backend.api.infra;
+package alura.challange.backend.api.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
