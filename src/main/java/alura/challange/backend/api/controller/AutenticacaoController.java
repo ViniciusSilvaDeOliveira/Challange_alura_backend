@@ -1,6 +1,9 @@
 package alura.challange.backend.api.controller;
 
 import alura.challange.backend.api.domain.usuario.DadosAutenticacao;
+import alura.challange.backend.api.domain.usuario.Usuario;
+import alura.challange.backend.api.infra.security.DadosTokenJWT;
+import alura.challange.backend.api.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +21,14 @@ public class AutenticacaoController {
     @Autowired
     private AuthenticationManager manager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping
     public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados){
-        var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-        var authentication = manager.authenticate(token);
-        return ResponseEntity.ok().build();
+        var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+        var authentication = manager.authenticate(authenticationToken);
+        var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal()); //chama a clase JWT e recebe de volta
+        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT)); // e devolve dentro de um DTO
     }
 }
