@@ -1,6 +1,5 @@
 package alura.challange.backend.api.controller;
 
-import alura.challange.backend.api.domain.depoimentos.DadosListagemDepoimentos;
 import alura.challange.backend.api.domain.destinos.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -10,9 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.List;
-import java.util.function.LongFunction;
 
 @RestController
 @RequestMapping("/destinos")
