@@ -2,6 +2,7 @@ package alura.challange.backend.api.controller;
 
 import alura.challange.backend.api.domain.depoimentos.*;
 import alura.challange.backend.api.service.DepoimentoService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/depoimentos")
+@SecurityRequirement(name = "bearer-key")
 public class DepoimentoController {
 
     /**
