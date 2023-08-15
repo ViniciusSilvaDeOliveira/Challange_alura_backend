@@ -9,8 +9,4 @@ public interface DestinosRepository extends JpaRepository<Destinos, Long> {
             SELECT * FROM Destinos d WHERE LOWER(d.nome) LIKE LOWER(CONCAT('%', :nome, '%'))
             """, nativeQuery = true)
     Destinos getDestinoByNome(String nome);
-
-    //select * from Destinos d where d.nome = :nome
-
-
 }
