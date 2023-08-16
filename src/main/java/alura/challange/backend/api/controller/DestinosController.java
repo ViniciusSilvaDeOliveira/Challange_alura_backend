@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/destinos")
 @SecurityRequirement(name = "bearer-key")
@@ -57,8 +59,8 @@ public class DestinosController {
     }
 
     @GetMapping("/{nome}")
-    public ResponseEntity detalhar(@PathVariable String nome){
-        var destinos = destinosRepository.getDestinoByNome(nome);
-        return ResponseEntity.ok(new DadosDetalhamentoDestinos(destinos));
+    public ResponseEntity<List<Destinos>> detalhar(@PathVariable String nome){
+        List<Destinos> destinos = destinosRepository.getDestinoByNome(nome);
+        return ResponseEntity.ok(destinos);
     }
 }
