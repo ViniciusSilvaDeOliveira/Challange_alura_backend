@@ -64,8 +64,7 @@ public class DestinosController {
     public ResponseEntity<List<Destinos>> detalhar(@PathVariable String nome){
         List<Destinos> destinos = destinosRepository.getDestinoByNome(nome);
         if (destinos.isEmpty()){
-            String mensagem = "Nenhum destino foi encontrado.";
-            return new ResponseEntity(mensagem, HttpStatus.NO_CONTENT);
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(destinos);
     }
